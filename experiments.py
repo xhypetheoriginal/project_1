@@ -231,19 +231,19 @@ def powpr():
     price_per_kw = float(input())
     print("how many watts do you consume per hour?")
     wph = float(input())
-    killowatt = 1000
+    kilowatt = 1000
     print("how many hours per day?")
     h = float(input())
     if h > day:
         print("there are only 24 hours in a day.")
         powpr()
     elif h <= day:
-        price = ((wph * h) / killowatt) * price_per_kw
+        price = ((wph / kilowatt) * h) * price_per_kw
         print("you pay ")
         print(price)
         print("dollars per day")
-        price_month = ((wph * (h * month)) / killowatt) * price_per_kw
-        price_year = ((wph * (h * year)) / killowatt) * price_per_kw
+        price_month = ((wph / kilowatt) * (h * month)) * price_per_kw
+        price_year = ((wph / kilowatt) * (h * year) * price_per_kw
         print("that is ")
         print(price_month)
         print("dollars per month")
