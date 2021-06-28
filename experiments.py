@@ -7,6 +7,7 @@ import os
 import platform
 import psutil
 import tkinter as tk
+import shutil
 
 
 def bye():
@@ -27,19 +28,38 @@ def urls():
 
 def googlescrape():
     print("this program will take the code from a website and deliver it to you!")
-    text = input()
-    url = 'https://' + text + '.com'
-    request_result = requests.get(url)
+    print("but first. do you want to get to a specific website or search google?")
+    a = input()
+    if a == "search google":
+        print("this program will search google and give you the code!")
+        j = input()
+        url = 'https://google.com/q=' + j
+        request_result = requests.get(url)
 
-    soup = bs4.BeautifulSoup(request_result.text,
-                             "html.parser")
-    print(soup)
-    print("anything else?")
-    j = input()
-    if j == "yes":
-        start()
-    elif j == "no":
-        print("goodbye for now!")
+        soup = bs4.BeautifulSoup(request_result.text,
+                                 "html.parser")
+        print(soup)
+        print("anything else?")
+        j = input()
+        if j == "yes":
+            start()
+        elif j == "no":
+            print("goodbye for now!")
+
+    elif a == "specific website":
+        text = input()
+        url = 'https://' + text + '.com'
+        request_result = requests.get(url)
+
+        soup = bs4.BeautifulSoup(request_result.text,
+                                 "html.parser")
+        print(soup)
+        print("anything else?")
+        j = input()
+        if j == "yes":
+            start()
+        elif j == "no":
+            print("goodbye for now!")
 
 
 def lists():
@@ -54,7 +74,7 @@ def lists():
         print("this text will appear after every word you write. i am very sorry for the inconvenience")
         f = input()
         if f == "stop":
-            print("if you want to return to the menu: type yes. if you want to close the program: typr no"
+            print("if you want to return to the menu: type yes. if you want to close the program: type no"
                   "if you want to make another list: type list.")
             j = input()
             if j == "yes":
@@ -179,7 +199,6 @@ def sysdata():
     open_file.close()
 
     open_file = open(sf, "rb")
-    loaded_list = pickle.load(open_file)
     open_file.close()
     print("i have stored the data in your computer. the file name is: 'sysdata.txt'. it will appear after the program"
           "was closed")
@@ -195,7 +214,7 @@ def rc():
     print("this program will create a simple app with 1 button. once you will click it it will print what you will "
           "write now." + " this code is just for fun. but maybe you can find a use to it!"
           "\nusing this will stop the program. it is not really a problem. just annoying. so ill give you a chance to"
-          "go back now. type 'go back' or 'continue'")
+                         "go back now. type 'go back' or 'continue'")
     u = input()
     if u == "go back":
         start()
@@ -215,6 +234,7 @@ def rc():
             canvas1.create_window(150, 150, window=button1)
 
             root.mainloop()
+
         print("anything else?")
         u = input()
         if u == "yes":
@@ -243,7 +263,7 @@ def powpr():
         print(price)
         print("dollars per day")
         price_month = ((wph / kilowatt) * (h * month)) * price_per_kw
-        price_year = ((wph / kilowatt) * (h * year) * price_per_kw
+        price_year = ((wph / kilowatt) * (h * year)) * price_per_kw
         print("that is ")
         print(price_month)
         print("dollars per month")
@@ -258,11 +278,29 @@ def powpr():
             print("goodbye for now!")
 
 
+def copypaste():
+    print("please enter the path to the folder where the file is")
+    f = input()
+    print("now enter the file name (+ extension)")
+    g = input()
+    original = f'{f}\{g}'
+    print("now enter the path to the target folder")
+    target = input()
+    shutil.copy2(original, target)
+    print("i know it was not very useful but, its a cool way to copy and paste files!")
+    print("anything else?")
+    u = input()
+    if u == "yes":
+        start()
+    if u == "no":
+        print("goodbye for now!")
+
+
 def start():
     print("what do you want to do?\nhere are the options:\nsearch google (type: urls\ngoogle-scrape (type: gs)\n"
           "storing data in files (type: lists)\nsimple math problems (type: smp).\nprint the multiplication table "
           "(type:mt).\nprint your systems data (type: sysdata).\nwrite things on an app (just for fun) (type: jff)\n"
-          "calculate how much you are paying for electricity (type:ppw)")
+          "calculate how much you are paying for electricity (type:ppw)\ncopy and paste files (type: cp)\n")
     f = input()
     if f == "urls":
         urls()
@@ -280,6 +318,9 @@ def start():
         rc()
     elif f == "ppw":
         powpr()
+    elif f == "cp":
+        copypaste()
 
 
 start()
+
